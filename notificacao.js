@@ -18,7 +18,7 @@ const messaging = getMessaging(app);
 const VAPID_KEY = "BHH2CPxseD-v4JkRytM0RseK4FEkijcoSY6p14Axk09VfszPAvTDDp1yS4QN8jOcZKwwsTD5UsF6zK4kxZnbSz0";
 
 // REGISTRA SERVICE WORKER (IMPORTANTE PRO GITHUB)
-navigator.serviceWorker.register('/Jogos-36o/firebase-messaging-sw.js')
+navigator.serviceWorker.register('/firebase-messaging-sw.js')
 .then(() => {
     console.log("Service Worker registrado");
 })
