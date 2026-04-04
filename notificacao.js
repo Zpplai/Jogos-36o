@@ -17,15 +17,6 @@ const messaging = getMessaging(app);
 // SUA VAPID KEY
 const VAPID_KEY = "BHH2CPxseD-v4JkRytM0RseK4FEkijcoSY6p14Axk09VfszPAvTDDp1yS4QN8jOcZKwwsTD5UsF6zK4kxZnbSz0";
 
-// REGISTRA SERVICE WORKER (IMPORTANTE PRO GITHUB)
-navigator.serviceWorker.register('/firebase-messaging-sw.js')
-.then(() => {
-    console.log("Service Worker registrado");
-})
-.catch(err => {
-    console.log("Erro SW:", err);
-});
-
 // ===== BOTÃO PRA ATIVAR =====
 const btn = document.createElement("button");
 btn.innerText = "Ativar Notificações 🔔";
@@ -42,20 +33,27 @@ btn.style.zIndex = "9999";
 
 document.body.appendChild(btn);
 
-// clique real (funciona no celular)
+// clique REAL (funciona no celular)
 btn.addEventListener("click", async () => {
     try {
         const permission = await Notification.requestPermission();
 
         if (permission === "granted") {
+
+            // registra corretamente o service worker
+            const registration = await navigator.serviceWorker.register('./firebase-messaging-sw.js');
+
+            // pega token (AGORA FUNCIONA)
             const token = await getToken(messaging, {
-                vapidKey: VAPID_KEY
+                vapidKey: VAPID_KEY,
+                serviceWorkerRegistration: registration
             });
 
             console.log("TOKEN:", token);
             alert("Notificação ativada 🔔");
 
             btn.remove();
+
         } else {
             alert("Permissão negada ❌");
         }
