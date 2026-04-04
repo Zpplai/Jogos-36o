@@ -323,37 +323,3 @@ window.abrirAnuncioEDownload = function(urlDownload) {
     }
 };
 
-// Aproveite e coloque a do aviso de idade aqui também se não tiver
-window.confirmAge = function() {
-    const warning = document.getElementById('ageWarning');
-    if (warning) {
-        warning.style.display = 'none';
-        localStorage.setItem('ageConfirmed', 'true');
-    }
-};
-
-
-// --- SISTEMA AUTOMÁTICO DE NOTIFICAÇÃO (COLE NO FINAL) ---
-
-// 1. Pede permissão ao abrir o site
-if ("Notification" in window) {
-    Notification.requestPermission();
-}
-
-// 2. Monitora o formulário e envia o aviso ao salvar
-document.addEventListener('submit', (e) => {
-    // Verifica se o formulário que enviou é o de jogos
-    if (e.target.id === 'gameForm') {
-        const nomeJogo = document.getElementById('gName')?.value || "Novo Jogo";
-        
-        // Só dispara a notificação se o usuário permitiu
-        if (Notification.permission === "granted") {
-            setTimeout(() => {
-                new Notification("🎮 Novo Jogo Adicionado!", {
-                    body: `O jogo ${nomeJogo} já está disponível. Vem conferir!`,
-                    icon: "https://th.bing.com/th/id/R.7088b99187308736d933390886659682?pid=ImgRaw&r=0"
-                });
-            }, 1000); // Espera 1 segundo para o banco salvar e depois avisa
-        }
-    }
-});
