@@ -1,3 +1,14 @@
+// Função para abrir o Smartlink e depois o download
+window.abrirAnuncioEDownload = function(urlDownload) {
+    // 1. Abre o seu Smartlink em uma nova aba
+    window.open('https://www.profitablecpmratenetwork.com/vxg2hm2n04?key=b4c26b2ade112653404ea366c1826caf', '_blank');
+
+    // 2. Opcional: Um pequeno delay para garantir que o anúncio carregue
+    // O download começa na mesma aba onde o usuário já está
+    setTimeout(() => {
+        window.location.href = urlDownload;
+    }, 500); 
+};
 // 1
 import { db, auth } from './firebase-config.js';
 import { collection, addDoc, getDocs, doc, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
