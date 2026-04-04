@@ -1,7 +1,4 @@
-// Pedir permissão de notificação assim que abrir o site
-if ("Notification" in window) {
-    Notification.requestPermission();
-}
+
 // 1
 import { db, auth } from './firebase-config.js';
 import { collection, addDoc, getDocs, doc, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
