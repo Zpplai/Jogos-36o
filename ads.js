@@ -3,7 +3,7 @@
 function loadAd(src) {
     const s = document.createElement('script');
     s.src = src;
-    s.async = true;
+    s.defer = true;
     document.body.appendChild(s);
 }
 
