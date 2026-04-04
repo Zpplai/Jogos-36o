@@ -1,18 +1,14 @@
-// 1. FUNÇÃO DO BOTÃO "CONTINUAR" (FECHA O AVISO)
+// 1. FORÇA O BOTÃO "CONTINUAR" A FUNCIONAR
 window.confirmAge = function() {
     const warning = document.getElementById('ageWarning');
     if (warning) {
         warning.style.display = 'none';
         localStorage.setItem('ageConfirmed', 'true');
+        console.log("Idade confirmada!");
     }
 };
 
-// 2. FUNÇÃO DO BOTÃO "SAIR"
-window.exitSite = function() {
-    window.location.href = "https://www.google.com";
-};
-
-// 3. FUNÇÃO DO BOTÃO DE DOWNLOAD (GANHAR DINHEIRO)
+// 2. FORÇA O BOTÃO DE DOWNLOAD A FUNCIONAR
 window.abrirAnuncioEDownload = function(urlDownload) {
     const urlAnuncio = "https://www.profitablecpmratenetwork.com/vxg2hm2n04?key=b4c26b2ade112653404ea366c1826caf";
     window.open(urlAnuncio, '_blank');
@@ -21,13 +17,12 @@ window.abrirAnuncioEDownload = function(urlDownload) {
     }, 800);
 };
 
-// 4. VERIFICA SE JÁ ACEITOU A IDADE AO CARREGAR
-document.addEventListener('DOMContentLoaded', () => {
-    if (localStorage.getItem('ageConfirmed') === 'true') {
-        const warning = document.getElementById('ageWarning');
-        if (warning) warning.style.display = 'none';
-    }
-});
+// 3. SE O USUÁRIO JÁ ACEITOU, TIRA O AVISO NA HORA
+if (localStorage.getItem('ageConfirmed') === 'true') {
+    const warning = document.getElementById('ageWarning');
+    if (warning) warning.style.display = 'none';
+}
+
 
 
 
