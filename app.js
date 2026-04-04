@@ -1,5 +1,3 @@
-
-// FAZ O BOTÃO SUMIR
 window.confirmAge = function() {
     const warning = document.getElementById('ageWarning');
     if (warning) {
@@ -8,27 +6,14 @@ window.confirmAge = function() {
     }
 };
 
-// VOLTA PRO GOOGLE
-window.exitSite = function() {
-    window.location.href = "https://www.google.com";
-};
-
-// DOWNLOAD COM SEU LINK REAL
-window.abrirAnuncioEDownload = function(urlDownload) {
-    const urlAnuncio = "https://www.profitablecpmratenetwork.com/vxg2hm2n04?key=b4c26b2ade112653404ea366c1826caf";
-    window.open(urlAnuncio, '_blank');
-    setTimeout(() => {
-        window.location.href = urlDownload;
-    }, 800);
-};
-
-// SE JÁ ACEITOU ANTES, JÁ COMEÇA SEM O AVISO
+// Se já aceitou, some sozinho
 if (localStorage.getItem('ageConfirmed') === 'true') {
-    window.onload = () => {
+    document.addEventListener('DOMContentLoaded', () => {
         const warning = document.getElementById('ageWarning');
         if (warning) warning.style.display = 'none';
-    };
+    });
 }
+
 
 
 
