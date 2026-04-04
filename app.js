@@ -323,3 +323,14 @@ window.abrirAnuncioEDownload = function(urlDownload) {
     }
 };
 
+
+import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+const db = getFirestore();
+
+async function notificarNovoJogo(nomeJogo) {
+    await addDoc(collection(db, "notificacoes"), {
+        nome: nomeJogo,
+        time: Date.now()
+    });
+}
