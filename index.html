@@ -9,12 +9,69 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 <link rel="manifest" href="manifest.json">
     <style>
+
+
         
 
 
+<!-- Aviso de idade -->
+<div id="ageWarning" class="fixed inset-0 bg-black/50 flex items-center justify-center p-6 text-center animate-fade-in" style="z-index: 999999; display: none;">
+    <div class="bg-slate-900 p-8 rounded-3xl border border-white/10 max-w-sm shadow-2xl">
+        <div class="w-16 h-16 bg-red-500/20 text-red-500 rounded-full flex items-center justify-center mx-auto mb-6">
+            <i class="fa fa-triangle-exclamation text-3xl"></i>
+        </div>
+        <h2 class="text-2xl font-black mb-4 uppercase italic">
+            Aviso de <span class="text-red-500">Conteúdo</span>
+        </h2>
+        <p class="text-slate-400 text-sm mb-8 leading-relaxed">
+            Este site contém anúncios para maiores de 18 anos. Deseja continuar?
+        </p>
+        <div class="flex flex-col gap-3">
+            <button onclick="confirmAge()" class="w-full bg-blue-600 py-4 rounded-xl font-bold uppercase text-white cursor-pointer select-none active:bg-blue-700">
+                Continuar
+            </button>
+            <button onclick="exitSite()" class="w-full bg-slate-800 py-4 rounded-xl font-bold uppercase text-slate-400 cursor-pointer select-none mt-2">
+                Sair
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+  // Função para confirmar idade
+  window.confirmAge = function(event) {
+      if (event) { event.preventDefault(); event.stopPropagation(); }
+      const warning = document.getElementById('ageWarning');
+      if (warning) {
+          warning.style.display = 'none';
+          localStorage.setItem('ageConfirmed', 'true');
+      }
+  };
+
+  // Função para sair do site
+  window.exitSite = function() {
+      window.location.href = "https://www.google.com";
+  };
+
+  // Mostrar aviso ao carregar a página
+  window.addEventListener('load', () => {
+      const warning = document.getElementById('ageWarning');
+      const jaConfirmou = localStorage.getItem('ageConfirmed');
+      if (!warning) return;
+
+      if (jaConfirmou === 'true') {
+          warning.style.display = 'none';
+      } else {
+          warning.style.display = 'flex';
+      }
+  });
+</script>
 
 
 
+
+
+      
 
     <div id="sidebar" class="fixed inset-y-0 left-0 w-72 bg-slate-900 transform -translate-x-full transition-transform duration-300 border-r border-white/10 p-6 shadow-2xl">
         <div class="flex justify-between items-center mb-10">
