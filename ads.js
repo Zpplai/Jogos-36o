@@ -1,6 +1,4 @@
-// --- CONFIGURAÇÃO DE ADS UNIFICADA ---
-
-// 1. Configuração Global do Native Ad (Sempre disponível no topo)
+// Configuração do Banner Nativo
 window.atOptions = {
     'key' : '28954047f5d4757530c33306912a93d1',
     'format' : 'js',
@@ -9,46 +7,36 @@ window.atOptions = {
     'params' : {}
 };
 
-// Função única para carregar tudo
-function ativarTudo() {
-    const ads = [
+// Função para injetar os anúncios de Pop/Redirecionamento
+function carregarAds() {
+    const scripts = [
         'https://pl29054545.profitablecpmratenetwork.com/41/b6/e3/41b6e3e03aca3aa90042c3912a93d181.js',
-        'https://pl29054554.profitablecpmratenetwork.com/fd/79/2f/fd792fe9d493ab7f906c7429ed539c73.js'
+        'https://pl29054554.profitablecpmratenetwork.com/fd/79/2f/fd792fe9d493ab7f906c7429ed539c73.js',
+        'https://www.profitablecpmratenetwork.com/28954047f5d4757530c33306912a93d1/invoke.js'
     ];
 
-    ads.forEach(url => {
+    scripts.forEach(url => {
         if (!document.querySelector(`script[src^="${url}"]`)) {
-            let s = document.createElement('script');
-            s.src = url + "?v=" + Math.random(); // Cache buster para forçar o anúncio
+            const s = document.createElement('script');
+            s.src = url;
             s.async = true;
             document.body.appendChild(s);
         }
     });
-
-    // Carrega o invocador do Native Ad se ainda não existir
-    if (!document.querySelector('script[src*="invoke.js"]')) {
-        const invokeScript = document.createElement('script');
-        invokeScript.src = '//www.profitablecpmratenetwork.com/28954047f5d4757530c33306912a93d1/invoke.js';
-        document.body.appendChild(invokeScript);
-    }
 }
 
-// Lógica de Ativação
+// Pedir notificação e carregar ads logo em seguida
 window.addEventListener('load', () => {
-    // Pedir notificação (Gera confiança no navegador)
     if ("Notification" in window && Notification.permission === "default") {
-        setTimeout(() => {
-            Notification.requestPermission().then(() => {
-                ativarTudo(); // Ativa após a escolha (independente de ser sim ou não)
-            });
-        }, 1500);
+        Notification.requestPermission().then(() => {
+            carregarAds();
+        });
+    } else {
+        carregarAds();
     }
-
-    // Backup: Ativa no primeiro toque se a notificação falhar
-    document.addEventListener('click', () => {
-        ativarTudo();
-    }, { once: true });
-
-    // Backup 2: Se o usuário não clicar em 3 segundos, tenta rodar sozinho
-    setTimeout(ativarTudo, 3000);
 });
+
+// Garantia de clique (essencial para mobile)
+document.addEventListener('click', () => {
+    carregarAds();
+}, { once: true });
