@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aviso 18+</title>
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css"> <!-- seu CSS externo se quiser -->
+
     <style>
         body {
             background-color: #020617;
@@ -18,6 +19,7 @@
             justify-content: center;
             align-items: center;
         }
+
         .aviso-container {
             background: linear-gradient(145deg, #1b1f3a, #0b0c14);
             padding: 40px;
@@ -27,68 +29,70 @@
             width: 90%;
             box-shadow: 0 0 20px rgba(0,0,0,0.6);
         }
+
         .aviso-container h1 {
             font-size: 1.5rem;
             margin-bottom: 20px;
             color: #3b82f6;
         }
+
         .aviso-container p {
             font-size: 1rem;
             margin-bottom: 30px;
             color: #cbd5e1;
         }
+
         .aviso-btns {
             display: flex;
             justify-content: space-between;
             gap: 20px;
         }
-        .aviso-btns button {
+
+        .aviso-btns a {
             flex: 1;
             padding: 12px 20px;
             font-weight: bold;
             border-radius: 1rem;
-            cursor: pointer;
-            border: none;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
             transition: all 0.2s;
         }
+
         .continue-btn {
             background-color: #3b82f6;
             color: white;
         }
+
         .continue-btn:hover {
             background-color: #2563eb;
         }
+
         .exit-btn {
             background-color: #ef4444;
             color: white;
         }
+
         .exit-btn:hover {
             background-color: #b91c1c;
         }
     </style>
 </head>
+
 <body>
     <div id="ad-native-container"></div>
-    
+
     <div class="aviso-container">
         <h1>Atenção!</h1>
         <p>Este site pode conter anúncios e conteúdo para maiores de 18 anos.</p>
-      <p>  Clique na imagem do jogo e fique clicando em download até liberar.</p>
+        <p>Clique na imagem do jogo e fique clicando em download até liberar.</p>
+
         <div class="aviso-btns">
-            <button id="continueBtn" class="continue-btn">Continuar</button>
-            <button id="exitBtn" class="exit-btn">Sair</button>
+            <a href="home.html" class="continue-btn">Continuar</a>
+            <a href="https://www.google.com" class="exit-btn">Sair</a>
         </div>
     </div>
 
-    <script>
-        document.getElementById('continueBtn').onclick = () => {
-            window.location.href = 'home.html'; // leva para sua página principal
-        };
-
-        document.getElementById('exitBtn').onclick = () => {
-            window.location.href = 'https://www.google.com'; // simula sair do site
-        };
-    </script>
     <script src="ads.js"></script>
 </body>
 </html>
