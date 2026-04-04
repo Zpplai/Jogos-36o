@@ -1,20 +1,45 @@
-// 1. Função para abrir o Anúncio e depois o Download
+// 1. Função de Download com seu Smartlink (Adsterra)
 window.abrirAnuncioEDownload = function(urlDownload) {
-    // SEU SMART LINK REAL DO ADSTERRA
     const urlAnuncio = "https://www.profitablecpmratenetwork.com/vxg2hm2n04?key=b4c26b2ade112653404ea366c1826caf";
-
-    // Abre o anúncio em uma nova aba
-    const win = window.open(urlAnuncio, '_blank');
-
-    if (win) {
-        win.focus();
-    }
-
-    // Espera 800ms para o navegador processar e inicia o download na aba atual
+    window.open(urlAnuncio, '_blank');
     setTimeout(() => {
         window.location.href = urlDownload;
     }, 800);
 };
+
+// 2. Importações do Firebase (NÃO APAGUE)
+import { db, auth } from './firebase-config.js';
+import { collection, getDocs, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+// 3. Carregar os Jogos e tirar a tela azul
+window.onload = async () => {
+    const gameGrid = document.getElementById('gameGrid');
+    
+    // Se o JS carregar até aqui, a tela azul some na hora!
+    try {
+        const querySnapshot = await getDocs(collection(db, "jogos"));
+        gameGrid.innerHTML = ""; // Limpa o "carregando"
+        
+        querySnapshot.forEach((doc) => {
+            const j = doc.data();
+            // Aqui ele cria o card do jogo com o SEU botão de download
+            gameGrid.innerHTML += `
+                <div class="bg-slate-900 rounded-2xl overflow-hidden border border-white/5">
+                    <img src="${j.capa}" class="w-full h-48 object-cover">
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg mb-4">${j.nome}</h3>
+                        <button onclick="abrirAnuncioEDownload('${j.link}')" class="w-full bg-blue-600 py-3 rounded-xl font-bold uppercase text-white">
+                            Download
+                        </button>
+                    </div>
+                </div>
+            `;
+        });
+    } catch (error) {
+        console.log("Erro ao carregar jogos:", error);
+    }
+};
+
 
 // --- CONFIGURAÇÕES DO FIREBASE E INTERFACE ---
 
