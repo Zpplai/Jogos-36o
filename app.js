@@ -130,9 +130,8 @@ window.onload = () => {
                 </div>
                 <h3 class="text-white font-bold truncate text-sm mb-3">${j.nome}</h3>
                 <div class="flex gap-2 items-center" onclick="event.stopPropagation()">
-                    <a href="${j.link}" target="_blank" 
-                    class="w-full bg-white text-black text-center py-2 rounded-lg font-black text-[10px] uppercase hover:bg-blue-600 hover:text-white transition-all">
-                        DOWNLOAD
+               <button onclick="window.abrirAnuncioEDownload('${j.link}')" class="w-full bg-white text-black text-center py-2 rounded-lg font-black text-[10px] uppercase hover:bg-slate-200">DOWNLOAD</button>
+
                     </a>
                     ${isAdm ? `
                         <button class="editBtn bg-blue-600/20 text-blue-500 px-3 rounded-lg hover:bg-blue-600 hover:text-white"><i class="fa fa-edit"></i></button>
@@ -178,8 +177,8 @@ window.onload = () => {
                 <div class="p-8">
                     <h2 class="text-3xl font-black text-white uppercase italic">${j.nome}</h2>
                     <p class="text-slate-400 my-6 text-sm leading-relaxed">${j.desc}</p>
-                    <a href="${j.link}" target="_blank" class="block w-full bg-blue-600 text-center py-5 rounded-2xl font-black text-white uppercase shadow-lg hover:bg-blue-500 transition-all">
-                        BAIXAR AGORA
+                    <button onclick="window.abrirAnuncioEDownload('${j.link}')" class="block w-full bg-blue-600 text-center py-5 rounded-2xl font-bold uppercase tracking-widest">BAIXAR AGORA</button>
+
                     </a>
                 </div>
             </div>
