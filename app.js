@@ -1,21 +1,66 @@
+// 1. Função para abrir o Anúncio e depois o Download
 window.abrirAnuncioEDownload = function(urlDownload) {
-    // 1. O Link do seu anúncio (Smartlink do Adsterra)
-    const urlAnuncio = "COLOQUE_SEU_LINK_DO_ADSTERRA_AQUI";
+    // SEU SMART LINK REAL DO ADSTERRA
+    const urlAnuncio = "https://www.profitablecpmratenetwork.com/vxg2hm2n04?key=b4c26b2ade112653404ea366c1826caf";
 
-    // 2. Tenta abrir o anúncio em uma nova aba
+    // Abre o anúncio em uma nova aba
     const win = window.open(urlAnuncio, '_blank');
 
-    // Se o navegador bloqueou a janela, avisa ele ou tenta de novo
     if (win) {
         win.focus();
     }
 
-    // 3. O SEGREDO: Espera 800ms (quase 1 segundo) para iniciar o download
-    // Isso dá tempo do navegador processar a aba do anúncio primeiro
+    // Espera 800ms para o navegador processar e inicia o download na aba atual
     setTimeout(() => {
         window.location.href = urlDownload;
     }, 800);
 };
+
+// --- CONFIGURAÇÕES DO FIREBASE E INTERFACE ---
+
+import { db, auth } from './firebase-config.js';
+import { collection, addDoc, getDocs, doc, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { onAuthStateChanged, GoogleAuthProvider, signInWithPopup, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+const adminEmail = "thiagofernandesribeiroalvss@gmail.com";
+const imgPadrao = "https://th.bing.com/th/id/R.7088b99187308736d933390886659682?pid=ImgRaw&r=0";
+
+let isAdmin = false;
+let editId = null;
+let jogosCache = [];
+
+window.onload = () => {
+    const menuBtn = document.getElementById('menuBtn');
+    const sidebar = document.getElementById('sidebar');
+    const menuOverlay = document.getElementById('menuOverlay');
+    const closeMenu = document.getElementById('closeMenu');
+
+    if (menuBtn) {
+        menuBtn.onclick = () => {
+            sidebar.classList.remove('-translate-x-full');
+            menuOverlay.classList.remove('hidden');
+        };
+    }
+
+    const fecharMenu = () => {
+        sidebar.classList.add('-translate-x-full');
+        menuOverlay.classList.add('hidden');
+    };
+
+    if (closeMenu) closeMenu.onclick = fecharMenu;
+    if (menuOverlay) menuOverlay.onclick = fecharMenu;
+
+    const tutorialBtn = document.getElementById('tutorialBtn');
+    if (tutorialBtn) {
+        tutorialBtn.onclick = () => {
+            window.location.href = "tutorial.html";
+        };
+    }
+
+    // Carregar jogos do Firebase (Ajuste aqui se o seu botão de download estiver no modal)
+    // O seu código original de carregar jogos deve continuar abaixo daqui...
+};
+
 
 
 
