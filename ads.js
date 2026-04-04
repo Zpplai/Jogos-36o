@@ -1,34 +1,14 @@
-// ===== BANNER SIMPLES =====
+// Arquivo ads.js
 
-// cria banner
-const banner = document.createElement("div");
-banner.style.position = "fixed";
-banner.style.bottom = "0";
-banner.style.left = "0";
-banner.style.width = "100%";
-banner.style.height = "60px";
-banner.style.background = "#111";
-banner.style.color = "#fff";
-banner.style.display = "flex";
-banner.style.alignItems = "center";
-banner.style.justifyContent = "center";
-banner.style.zIndex = "9999";
-banner.innerHTML = `
-  <a href="https://example.com" target="_blank" style="color:white;text-decoration:none;">
-    🔥 CLIQUE AQUI - ANÚNCIO TESTE
-  </a>
-`;;
-
-// adiciona na tela
-document.body.appendChild(banner);
-
-
-// ===== POP LEVE (1x por sessão) =====
-
-if (!sessionStorage.getItem("popShown")) {
-  sessionStorage.setItem("popShown", "true");
-
-  document.addEventListener("click", () => {
-    window.open("https://SEU-LINK-DE-ANUNCIO.com", "_blank");
-  }, { once: true });
+function loadAd(src) {
+    const s = document.createElement('script');
+    s.src = src;
+    s.async = true;
+    document.body.appendChild(s);
 }
+
+// Carrega o Popunder
+loadAd('https://pl29054545.profitablecpmratenetwork.com/41/b6/e3/41b6e3e03aca3aa90042c3912a93d181.js');
+
+// Carrega o Social Bar
+loadAd('https://pl29054554.profitablecpmratenetwork.com/fd/79/2f/fd792fe9d493ab7f906c7429ed539c73.js');
