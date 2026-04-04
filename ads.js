@@ -9,17 +9,18 @@ setTimeout(() => {
         s.async = true;
         document.body.appendChild(s);
     });
-        // Configuração do Native Banner
+
+    // Configuração do Native Banner
     const nativeScript = document.createElement('script');
-    nativeScript.innerHTML = `.
-        atOptions = {
+    nativeScript.innerHTML = `
+        var atOptions = {
             'key' : '28954047f5d4757530c33306912a93d1',
             'format' : 'js',
             'async' : true,
             'container' : 'ad-native-container',
             'params' : {}
         };
-    `.;
+    `;
     document.body.appendChild(nativeScript);
 
     const invokeScript = document.createElement('script');
