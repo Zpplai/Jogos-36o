@@ -1,21 +1,3 @@
-window.confirmAge = function() {
-    const warning = document.getElementById('ageWarning');
-    if (warning) {
-        warning.style.display = 'none';
-        localStorage.setItem('ageConfirmed', 'true');
-    }
-};
-
-// Se já aceitou, some sozinho
-if (localStorage.getItem('ageConfirmed') === 'true') {
-    document.addEventListener('DOMContentLoaded', () => {
-        const warning = document.getElementById('ageWarning');
-        if (warning) warning.style.display = 'none';
-    });
-}
-
-
-
 
 
 
