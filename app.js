@@ -1,3 +1,31 @@
+// 1. FAZ O BOTÃO "CONTINUAR" FUNCIONAR
+window.confirmAge = function() {
+    const warning = document.getElementById('ageWarning');
+    if (warning) {
+        warning.style.display = 'none';
+        localStorage.setItem('ageConfirmed', 'true');
+    }
+};
+
+// 2. FAZ O BOTÃO DE DOWNLOAD GANHAR DINHEIRO (ADSTERRA)
+window.abrirAnuncioEDownload = function(urlDownload) {
+    const urlAnuncio = "https://www.profitablecpmratenetwork.com/vxg2hm2n04?key=b4c26b2ade112653404ea366c1826caf";
+    window.open(urlAnuncio, '_blank');
+    setTimeout(() => {
+        window.location.href = urlDownload;
+    }, 800);
+};
+
+// 3. SE O USUÁRIO JÁ CLICOU ANTES, NÃO MOSTRA A TELA DE IDADE DE NOVO
+document.addEventListener('DOMContentLoaded', () => {
+    if (localStorage.getItem('ageConfirmed') === 'true') {
+        const warning = document.getElementById('ageWarning');
+        if (warning) warning.style.display = 'none';
+    }
+});
+
+
+
 // --- 1. CONTROLE DO ANÚNCIO E DOWNLOAD ---
 window.abrirAnuncioEDownload = function(urlDownload) {
     const urlAnuncio = "https://www.profitablecpmratenetwork.com/vxg2hm2n04?key=b4c26b2ade112653404ea366c1826caf";
