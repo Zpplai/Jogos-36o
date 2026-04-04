@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutorial Jogos360 - Completo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        body { background-color: #020617; color: white; font-family: sans-serif; }
+        .step-card { background: rgba(30, 41, 59, 0.4); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .number-badge { background: linear-gradient(135deg, #3b82f6, #1d4ed8); min-width: 45px; height: 45px; border-radius: 12px; }
+        
+        /* Animação da Seta */
+        .seta { transition: transform 0.3s ease; }
+        .rodar { transform: rotate(180deg); }
+        
+        /* Conteúdo que expande */
+        .conteudo-ajuda { max-height: 0; overflow: hidden; transition: max-height 0.4s ease-in-out; }
+        .aberto { max-height: 500px; padding-bottom: 20px; }
+    </style>
+</head>
+<body class="p-4 pb-12">
+
+
+
+
+    <div class="max-w-xl mx-auto text-left mb-10 mt-8 border-l-4 border-blue-600 pl-5">
+        <h1 class="text-4xl font-black uppercase italic tracking-tighter text-blue-500">Manual <span class="text-white">Completo</span></h1>
+        <p class="text-slate-400 text-sm font-medium">TUDO O QUE VOCÊ PRECISA SABER</p>
+    </div>
+
+
+
+
+    <div class="max-w-xl mx-auto space-y-6">
+
+        <div class="step-card p-5 rounded-3xl flex gap-4 items-start">
+            <div class="number-badge flex items-center justify-center font-bold text-white">01</div>
+            <div class="flex-1">
+                <h3 class="font-bold text-blue-400 uppercase text-xs mb-3 italic">1º Passo: Ferramentas</h3>
+                <div class="space-y-2">
+                    <a href="https://play.google.com/store/apps/details?id=ru.zdevs.zarchiver" class="block bg-slate-800 p-3 rounded-xl text-sm font-bold border border-white/5">1. ZArchiver <i class="fa fa-download float-right text-blue-500"></i></a>
+                    <a href="https://play.google.com/store/apps/details?id=com.alphainventor.filemanager" class="block bg-slate-800 p-3 rounded-xl text-sm font-bold border border-white/5">2. Gerenciador de Arq. <i class="fa fa-download float-right text-blue-500"></i></a>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <div class="step-card p-5 rounded-3xl flex gap-4 items-start">
+            <div class="number-badge flex items-center justify-center font-bold text-white">02</div>
+            <div class="flex-1">
+                <h3 class="font-bold text-blue-400 uppercase text-xs mb-3 italic">2º Passo: Extração</h3>
+                
+                <div class="border border-blue-500/20 rounded-xl overflow-hidden">
+                    <button onclick="toggleAjuda('extrair', 'setaEx')" class="w-full flex justify-between items-center bg-blue-600/10 p-4 text-blue-100 font-bold text-xs uppercase">
+                        <span><i class="fa fa-file-zipper mr-2 text-blue-500"></i> Como extrair o jogo?</span>
+                        <i id="setaEx" class="fa fa-chevron-down seta"></i>
+                    </button>
+                    <div id="extrair" class="conteudo-ajuda bg-black/20 px-4 text-sm text-slate-400 space-y-2">
+                        <p>1. Abra o <b class="text-white">ZArchiver</b>.</p>
+                        <p>2. Vá até a pasta <b class="text-white">Download</b>.</p>
+                        <p>3. Dê um clique rápido no arquivo do jogo (ex: jogo.zip ou .7z).</p>
+                        <p>4. Escolha a opção <b class="text-blue-400">"Extrair aqui"</b>.</p>
+                        <p>5. Aguarde a barra chegar em 100%. Uma pasta com o nome do jogo vai aparecer.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <div class="step-card p-5 rounded-3xl flex gap-4 items-start">
+            <div class="number-badge flex items-center justify-center font-bold text-white">03</div>
+            <div class="flex-1 text-left">
+                <h3 class="font-bold text-blue-400 uppercase text-xs mb-3 italic">3º Passo: Pendrive</h3>
+                
+                <div class="border border-blue-500/20 rounded-xl overflow-hidden">
+                    <button onclick="toggleAjuda('pendrive', 'setaPen')" class="w-full flex justify-between items-center bg-blue-600/10 p-4 text-blue-100 font-bold text-xs uppercase">
+                        <span><i class="fa fa-usb mr-2 text-blue-500"></i> Como passar para o USB?</span>
+                        <i id="setaPen" class="fa fa-chevron-down seta"></i>
+                    </button>
+                    <div id="pendrive" class="conteudo-ajuda bg-black/20 px-4 text-sm text-slate-400 space-y-2">
+                        <p>1. Conecte o pendrive no celular.</p>
+                        <p>2. Abra o <b class="text-white">Gerenciador de Arquivos</b>.</p>
+                        <p>3. Encontre a pasta do jogo extraída, segure nela e clique em <b class="text-white">Copiar</b>.</p>
+                        <p>4. Volte na tela inicial do app, entre no <b class="text-blue-400">Armazenamento USB</b> e clique em <b class="text-white">Colar</b>.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <div class="step-card p-5 rounded-3xl flex gap-4 items-start border-b-4 border-blue-600">
+            <div class="number-badge flex items-center justify-center font-bold text-white">04</div>
+            <div class="flex-1 text-left">
+                <h3 class="font-bold text-blue-400 uppercase text-xs mb-3 italic">4º Passo: No Videogame</h3>
+                
+                <div class="space-y-3">
+                    <div class="border border-blue-500/20 rounded-xl overflow-hidden">
+                        <button onclick="toggleAjuda('xbox1', 'setaX1')" class="w-full flex justify-between items-center bg-blue-600/10 p-4 text-blue-100 font-bold text-xs uppercase text-left">
+                            <span class="pr-2"><i class="fa fa-folder-open mr-2 text-blue-500"></i> Abrir File Manager / Scan</span>
+                            <i id="setaX1" class="fa fa-chevron-down seta"></i>
+                        </button>
+                        <div id="xbox1" class="conteudo-ajuda bg-black/20 px-4 text-sm text-slate-400 space-y-3">
+                            <p>• <b class="text-white underline">File Manager:</b> Aperte <b class="text-white italic">BACK</b> ou <b class="text-white italic">B</b> no menu lateral, vá no ícone de pasta e aperte <b class="text-white italic">A</b>.</p>
+                            <hr class="border-white/5">
+                            <p>• <b class="text-white underline">Scan:</b> Aperte <b class="text-white italic">START</b>, vá em Content Settings > Manage Paths e aperte <b class="text-white italic">X</b> (Scan Now).</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-blue-900/30 p-4 rounded-2xl text-center border border-blue-500/10">
+                        <p class="text-[10px] uppercase text-blue-400 font-bold mb-1 tracking-widest">Caminho do HD:</p>
+                        <p class="font-mono font-bold text-white text-xs">USB > HDD1 > GAMES</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+    <div class="max-w-xl mx-auto mt-10">
+        <button onclick="window.history.back()" class="w-full bg-blue-600 py-5 rounded-3xl font-black uppercase tracking-widest shadow-2xl shadow-blue-600/40 active:scale-95 transition-all">
+            <i class="fa fa-play mr-2"></i> JOGAR AGORA
+        </button>
+    </div>
+
+
+
+
+    <script>
+        function toggleAjuda(idConteudo, idSeta) {
+            const conteudo = document.getElementById(idConteudo);
+            const seta = document.getElementById(idSeta);
+            conteudo.classList.toggle('aberto');
+            seta.classList.toggle('rodar');
+        }
+    </script>
+
+</body>
+</html>
