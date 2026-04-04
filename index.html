@@ -9,7 +9,42 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 <link rel="manifest" href="manifest.json">
     <style>
+        body { background-color: #020617; color: white; font-family: sans-serif; overflow-x: hidden; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
         
+        /* Força o menu a ficar no topo de todos os elementos */
+        #sidebar { z-index: 9999 !important; }
+        #menuOverlay { z-index: 9998 !important; }
+        
+        .animate-fade-in { animation: fadeIn 0.5s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body class="pb-20">
+
+
+<div id="ageWarning" class="fixed inset-0 bg-slate-950 flex items-center justify-center p-6 text-center" style="z-index: 999999 !important;">
+    
+    <div class="bg-slate-900 p-8 rounded-3xl border border-white/10 max-w-sm shadow-2xl">
+        <div class="w-16 h-16 bg-red-500/20 text-red-500 rounded-full flex items-center justify-center mx-auto mb-6">
+            <i class="fa fa-triangle-exclamation text-3xl"></i>
+        </div>
+        <h2 class="text-2xl font-black mb-4 uppercase italic">Aviso de <span class="text-red-500">Conteúdo</span></h2>
+        <p class="text-slate-400 text-sm mb-8 leading-relaxed">
+            Este site contém anúncios para maiores de 18 anos. Deseja continuar?
+        </p>
+        
+        <div class="flex flex-col gap-3">
+            <button onclick="confirmAge()" class="w-full bg-blue-600 py-4 rounded-xl font-bold uppercase">Continuar</button>
+            <button onclick="exitSite()" class="w-full bg-slate-800 py-4 rounded-xl font-bold uppercase text-slate-400">Sair</button>
+        </div>
+    </div> </div> ```
+
+
+
+    
+
+
 
 
 
@@ -110,6 +145,13 @@
 
 
     <button id="openAddModal" class="hidden fixed bottom-6 right-6 bg-blue-600 w-16 h-16 rounded-2xl shadow-2xl text-2xl z-50 hover:bg-blue-500 active:scale-90 transition-all border border-white/10">
+        <i class="fa fa-plus"></i>
+    <script type="module" src="app.js"></script>
+    <script src="pwa-handler.js"></script>
+     <script src="ads.js" defer></script>
+    
+</body>
+</html>
         <i class="fa fa-plus"></i>
     <script type="module" src="app.js"></script>
     <script src="pwa-handler.js"></script>
