@@ -119,10 +119,10 @@ window.onload = () => {
                 </div>
                 <h3 class="text-white font-bold truncate text-sm mb-3">${j.nome}</h3>
                 <div class="flex gap-2 items-center" onclick="event.stopPropagation()">
-                    <button class="w-full bg-white text-black text-center py-2 rounded-lg font-black text-[10px] uppercase hover:bg-blue-600 hover:text-white transition-all"
-    onclick="event.stopPropagation(); abrirAnuncio('${j.link}')">
+<button class="w-full bg-white text-black text-center py-2 rounded-lg font-black text-[10px] uppercase" onclick="event.stopPropagation(); window.open('https://www.profitablecpmratenetwork.com/vxg2hm2n04?key=b4c26b2ade112653404ea366c1826caf', '_blank')">
     DOWNLOAD
 </button>
+
                     ${isAdm ? `
                         <button class="editBtn bg-blue-600/20 text-blue-500 px-3 rounded-lg hover:bg-blue-600 hover:text-white"><i class="fa fa-edit"></i></button>
                         <button class="deleteBtn bg-red-600/20 text-red-500 px-3 rounded-lg hover:bg-red-600 hover:text-white"><i class="fa fa-trash"></i></button>
@@ -167,9 +167,10 @@ window.onload = () => {
                 <div class="p-8">
                     <h2 class="text-3xl font-black text-white uppercase italic">${j.nome}</h2>
                     <p class="text-slate-400 my-6 text-sm leading-relaxed">${j.desc}</p>
-                    <a href="${j.link}" target="_blank" class="block w-full bg-blue-600 text-center py-5 rounded-2xl font-black text-white uppercase shadow-lg hover:bg-blue-500 transition-all">
-                        BAIXAR AGORA
-                    </a>
+                    <a href="https://www.profitablecpmratenetwork.com/vxg2hm2n04?key=b4c26b2ade112653404ea366c1826caf" target="_blank" class="block w-full bg-blue-600 text-center py-5 rounded-2xl font-black">
+    BAIXAR AGORA
+</a>
+
                 </div>
             </div>
         `;
