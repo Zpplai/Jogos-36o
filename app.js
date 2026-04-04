@@ -1,14 +1,18 @@
-// 1. FORÇA O BOTÃO "CONTINUAR" A FUNCIONAR
+// 1. FUNÇÃO PARA O BOTÃO "CONTINUAR" FUNCIONAR
 window.confirmAge = function() {
     const warning = document.getElementById('ageWarning');
     if (warning) {
         warning.style.display = 'none';
         localStorage.setItem('ageConfirmed', 'true');
-        console.log("Idade confirmada!");
     }
 };
 
-// 2. FORÇA O BOTÃO DE DOWNLOAD A FUNCIONAR
+// 2. FUNÇÃO PARA O BOTÃO "SAIR"
+window.exitSite = function() {
+    window.location.href = "https://www.google.com";
+};
+
+// 3. FUNÇÃO DE DOWNLOAD COM SEU LINK REAL
 window.abrirAnuncioEDownload = function(urlDownload) {
     const urlAnuncio = "https://www.profitablecpmratenetwork.com/vxg2hm2n04?key=b4c26b2ade112653404ea366c1826caf";
     window.open(urlAnuncio, '_blank');
@@ -17,11 +21,14 @@ window.abrirAnuncioEDownload = function(urlDownload) {
     }, 800);
 };
 
-// 3. SE O USUÁRIO JÁ ACEITOU, TIRA O AVISO NA HORA
+// 4. LOGICA PARA NÃO MOSTRAR O AVISO DE NOVO
 if (localStorage.getItem('ageConfirmed') === 'true') {
     const warning = document.getElementById('ageWarning');
     if (warning) warning.style.display = 'none';
 }
+
+// ABAIXO DISSO VOCÊ PODE MANTER SUAS IMPORTAÇÕES DO FIREBASE SE PRECISAR
+
 
 
 
