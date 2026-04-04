@@ -169,9 +169,11 @@ window.onload = () => {
                 <div class="p-8">
                     <h2 class="text-3xl font-black text-white uppercase italic">${j.nome}</h2>
                     <p class="text-slate-400 my-6 text-sm leading-relaxed">${j.desc}</p>
-                    <button onclick="window.open('https://www.profitablecpmratenetwork.com/z9yx3p2p?key=21ab8b83070112b5b0e9535cdf0e9a88', '_blank'); window.location.href='${j.link}';" class="block w-full bg-blue-600 text-center py-5 rounded-2xl font-black text-white uppercase">
+                    <button onclick="window.abrirAnuncioEDownload('${j.link}')" class="block w-full bg-blue-600 text-center py-5 rounded-2xl font-black text-white uppercase">
     BAIXAR AGORA
 </button>
+
+
 
 
 
@@ -298,3 +300,35 @@ window.addEventListener('load', () => {
   });
 
 });
+
+// --- FUNÇÕES DE APOIO (COLE NO FINAL DO ARQUIVO) ---
+
+window.abrirAnuncioEDownload = function(urlDownload) {
+    const urlAnuncio = "https://www.profitablecpmratenetwork.com/z9yx3p2p?key=21ab8b83070112b5b0e9535cdf0e9a88";
+    
+    // Tenta abrir o anúncio em nova aba
+    const novaAba = window.open(urlAnuncio, '_blank');
+
+    if (!novaAba || novaAba.closed || typeof novaAba.closed == 'undefined') {
+        // Se o celular bloqueou o pop-up, vai pelo caminho seguro para não dar tela preta
+        window.location.href = urlAnuncio;
+        setTimeout(() => {
+            window.location.href = urlDownload;
+        }, 3000);
+    } else {
+        // Se abriu normal, volta pra aba do jogo e inicia o download
+        setTimeout(() => {
+            window.location.href = urlDownload;
+        }, 1000);
+    }
+};
+
+// Aproveite e coloque a do aviso de idade aqui também se não tiver
+window.confirmAge = function() {
+    const warning = document.getElementById('ageWarning');
+    if (warning) {
+        warning.style.display = 'none';
+        localStorage.setItem('ageConfirmed', 'true');
+    }
+};
+
