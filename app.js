@@ -233,13 +233,20 @@ window.onload = () => {
 
             if (editId) {
                 await updateDoc(doc(db, "jogos", editId), data);
-            } else {
-                await addDoc(collection(db, "jogos"), data);
-            }
+                  } else {
+          await addDoc(collection(db, "jogos"), data);
+          if (Notification.permission === "granted") {
+              new Notification("🎮 Novo Jogo Adicionado!", {
+                  body: `O jogo ${data.nome} já está disponível. Vem conferir!`,
+                  icon: imgPadrao
+              });
+          }
+      }
+
 
             document.getElementById('adminModal').classList.add('hidden');
             loadGames();
-        };
+    
     }
 
 // 🔍 SEARCH FIX
