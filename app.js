@@ -309,3 +309,24 @@ window.addEventListener('load', () => {
   });
 
 });
+
+// Função para quem quer continuar
+window.confirmAge = function() {
+    const warning = document.getElementById('ageWarning');
+    warning.classList.add('hidden'); // Esconde o aviso
+    // Opcional: Salva no navegador que ele já aceitou hoje
+    localStorage.setItem('ageConfirmed', 'true');
+};
+
+// Função para quem quer sair
+window.exitSite = function() {
+    // Redireciona para o Google ou YouTube
+    window.location.href = "https://www.google.com";
+};
+
+// Verifica se já confirmou antes (para não aparecer toda hora)
+window.addEventListener('DOMContentLoaded', () => {
+    if(localStorage.getItem('ageConfirmed') === 'true') {
+        document.getElementById('ageWarning').classList.add('hidden');
+    }
+});
