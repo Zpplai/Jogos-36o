@@ -1,3 +1,4 @@
+alert("notificacao carregou");
 // FIREBASE NOTIFICAÇÃO
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getMessaging, getToken } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-messaging.js";
