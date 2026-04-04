@@ -1,4 +1,4 @@
-// 1. Função de Download com seu Smartlink (Adsterra)
+// --- 1. CONTROLE DO ANÚNCIO E DOWNLOAD ---
 window.abrirAnuncioEDownload = function(urlDownload) {
     const urlAnuncio = "https://www.profitablecpmratenetwork.com/vxg2hm2n04?key=b4c26b2ade112653404ea366c1826caf";
     window.open(urlAnuncio, '_blank');
@@ -7,38 +7,75 @@ window.abrirAnuncioEDownload = function(urlDownload) {
     }, 800);
 };
 
-// 2. Importações do Firebase (NÃO APAGUE)
-import { db, auth } from './firebase-config.js';
-import { collection, getDocs, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+// --- 2. CONTROLE DO AVISO DE IDADE ---
+window.confirmAge = function() {
+    const warning = document.getElementById('ageWarning');
+    if (warning) {
+        warning.style.display = 'none';
+        localStorage.setItem('ageConfirmed', 'true');
+    }
+};
 
-// 3. Carregar os Jogos e tirar a tela azul
+window.exitSite = function() {
+    window.location.href = "https://www.google.com";
+};
+
+// --- 3. INICIALIZAÇÃO DO SITE ---
+import { db, auth } from './firebase-config.js';
+import { collection, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
 window.onload = async () => {
+    // Verificar se já confirmou a idade
+    if (localStorage.getItem('ageConfirmed') === 'true') {
+        const warning = document.getElementById('ageWarning');
+        if (warning) warning.style.display = 'none';
+    }
+
+    // Lógica do Menu Lateral (Sidebar)
+    const menuBtn = document.getElementById('menuBtn');
+    const sidebar = document.getElementById('sidebar');
+    const menuOverlay = document.getElementById('menuOverlay');
+    const closeMenu = document.getElementById('closeMenu');
+
+    if (menuBtn) {
+        menuBtn.onclick = () => {
+            sidebar.classList.remove('-translate-x-full');
+            menuOverlay.classList.remove('hidden');
+        };
+    }
+
+    const fecharMenu = () => {
+        sidebar.classList.add('-translate-x-full');
+        menuOverlay.classList.add('hidden');
+    };
+
+    if (closeMenu) closeMenu.onclick = fecharMenu;
+    if (menuOverlay) menuOverlay.onclick = fecharMenu;
+
+    // Carregar Jogos do Firebase
     const gameGrid = document.getElementById('gameGrid');
-    
-    // Se o JS carregar até aqui, a tela azul some na hora!
-    try {
-        const querySnapshot = await getDocs(collection(db, "jogos"));
-        gameGrid.innerHTML = ""; // Limpa o "carregando"
-        
-        querySnapshot.forEach((doc) => {
-            const j = doc.data();
-            // Aqui ele cria o card do jogo com o SEU botão de download
-            gameGrid.innerHTML += `
-                <div class="bg-slate-900 rounded-2xl overflow-hidden border border-white/5">
-                    <img src="${j.capa}" class="w-full h-48 object-cover">
-                    <div class="p-4">
-                        <h3 class="font-bold text-lg mb-4">${j.nome}</h3>
-                        <button onclick="abrirAnuncioEDownload('${j.link}')" class="w-full bg-blue-600 py-3 rounded-xl font-bold uppercase text-white">
+    if (gameGrid) {
+        try {
+            const querySnapshot = await getDocs(collection(db, "jogos"));
+            gameGrid.innerHTML = "";
+            querySnapshot.forEach((doc) => {
+                const j = doc.data();
+                gameGrid.innerHTML += `
+                    <div class="bg-slate-900 rounded-2xl overflow-hidden border border-white/5 p-2 animate-fade-in">
+                        <img src="${j.gImg || j.capa}" class="w-full h-40 object-cover rounded-xl mb-3">
+                        <h3 class="font-bold text-sm text-white mb-3 px-2">${j.gName || j.nome}</h3>
+                        <button onclick="abrirAnuncioEDownload('${j.gLink || j.link}')" class="w-full bg-blue-600 py-3 rounded-xl font-bold uppercase text-xs text-white">
                             Download
                         </button>
                     </div>
-                </div>
-            `;
-        });
-    } catch (error) {
-        console.log("Erro ao carregar jogos:", error);
+                `;
+            });
+        } catch (e) {
+            console.error("Erro ao carregar jogos:", e);
+        }
     }
 };
+;
 
 
 // --- CONFIGURAÇÕES DO FIREBASE E INTERFACE ---
