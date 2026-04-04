@@ -30,5 +30,5 @@ function abrirAnuncio(link) {
     // Espera 1 minuto antes de ir para o link do jogo
     setTimeout(() => {
         window.location.href = link;
-    }, 60000); // 60000ms = 1 minuto
+    }, 10000); // 60000ms = 1s
 }
