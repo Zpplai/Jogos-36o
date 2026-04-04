@@ -1,4 +1,3 @@
-
 // 1
 import { db, auth } from './firebase-config.js';
 import { collection, addDoc, getDocs, doc, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
@@ -88,7 +87,6 @@ window.onload = () => {
 // 13
     function renderGames(filtro) {
         const gameGrid = document.getElementById('gameGrid');
-        if (!gameGrid) return;
         gameGrid.innerHTML = '';
 
         const contagemCat = { "Todos": jogosCache.length };
@@ -121,9 +119,12 @@ window.onload = () => {
                 </div>
                 <h3 class="text-white font-bold truncate text-sm mb-3">${j.nome}</h3>
                 <div class="flex gap-2 items-center" onclick="event.stopPropagation()">
-                    <button class="w-full bg-white text-black text-center py-2 rounded-lg font-black text-[10px] uppercase" onclick="event.stopPropagation(); window.open('https://www.profitablecpmratenetwork.com/z9yx3p2p?key=21ab8b83070112b5b0e9535cdf0e9a88', '_blank');">
-                        DOWNLOAD
-                    </button>
+<button class="w-full bg-white text-black text-center py-2 rounded-lg font-black text-[10px] uppercase" onclick="event.stopPropagation(); window.open('https://www.profitablecpmratenetwork.com/z9yx3p2p?key=21ab8b83070112b5b0e9535cdf0e9a88', '_blank');">
+    DOWNLOAD
+</button>
+
+
+
                     ${isAdm ? `
                         <button class="editBtn bg-blue-600/20 text-blue-500 px-3 rounded-lg hover:bg-blue-600 hover:text-white"><i class="fa fa-edit"></i></button>
                         <button class="deleteBtn bg-red-600/20 text-red-500 px-3 rounded-lg hover:bg-red-600 hover:text-white"><i class="fa fa-trash"></i></button>
@@ -134,18 +135,14 @@ window.onload = () => {
             card.onclick = () => abrirModal(j, linkImg);
 
             if (isAdm) {
-                const delBtn = card.querySelector('.deleteBtn');
-                const edBtn = card.querySelector('.editBtn');
-
-                if(delBtn) delBtn.onclick = async (e) => {
+                card.querySelector('.deleteBtn').onclick = async (e) => {
                     e.stopPropagation();
                     if (confirm("Deletar jogo?")) {
                         await deleteDoc(doc(db, "jogos", j.id));
                         loadGames();
                     }
                 };
-
-                if(edBtn) edBtn.onclick = (e) => {
+                card.querySelector('.editBtn').onclick = (e) => {
                     e.stopPropagation();
                     editId = j.id;
                     document.getElementById('gName').value = j.nome;
@@ -163,7 +160,6 @@ window.onload = () => {
 // 18
     function abrirModal(j, linkImg) {
         const modalContent = document.getElementById('modalContent');
-        if(!modalContent) return;
         modalContent.innerHTML = `
             <div class="relative bg-slate-900 rounded-3xl overflow-hidden">
                 <button id="closeGameModal" class="absolute top-4 right-4 bg-black/50 text-white w-10 h-10 rounded-full z-10">✕</button>
@@ -174,8 +170,13 @@ window.onload = () => {
                     <h2 class="text-3xl font-black text-white uppercase italic">${j.nome}</h2>
                     <p class="text-slate-400 my-6 text-sm leading-relaxed">${j.desc}</p>
                     <button onclick="window.abrirAnuncioEDownload('${j.link}')" class="block w-full bg-blue-600 text-center py-5 rounded-2xl font-black text-white uppercase">
-                        BAIXAR AGORA
-                    </button>
+    BAIXAR AGORA
+</button>
+
+
+
+
+
                 </div>
             </div>
         `;
@@ -216,7 +217,7 @@ window.onload = () => {
         cancelBtn.onclick = () => document.getElementById('adminModal').classList.add('hidden');
     }
 
-// FORM (AQUI ESTÁ A CORREÇÃO DAS NOTIFICAÇÕES)
+// FORM
     const gameForm = document.getElementById('gameForm');
     if (gameForm) {
         gameForm.onsubmit = async (e) => {
@@ -233,12 +234,6 @@ window.onload = () => {
                 await updateDoc(doc(db, "jogos", editId), data);
             } else {
                 await addDoc(collection(db, "jogos"), data);
-                if (Notification.permission === "granted") {
-                    new Notification("🎮 Novo Jogo Adicionado!", {
-                        body: `O jogo ${data.nome} já está disponível. Vem conferir!`,
-                        icon: imgPadrao
-                    });
-                }
             }
 
             document.getElementById('adminModal').classList.add('hidden');
@@ -259,9 +254,21 @@ window.onload = () => {
     }
 };
 
-// INSTALAÇÃO DO APP
+
+
+
+
+
+
+
+
+
+
+
 window.addEventListener('load', () => {
+
   let deferredPrompt;
+
   const btn = document.createElement('button');
   btn.innerText = "Instalar App";
   btn.style.position = "fixed";
@@ -291,24 +298,32 @@ window.addEventListener('load', () => {
       alert("Instalação não disponível 😢 (normal no servidor local)");
     }
   });
+
 });
 
-// FUNÇÕES DE APOIO
+// --- FUNÇÕES DE APOIO (COLE NO FINAL DO ARQUIVO) ---
+
 window.abrirAnuncioEDownload = function(urlDownload) {
     const urlAnuncio = "https://www.profitablecpmratenetwork.com/z9yx3p2p?key=21ab8b83070112b5b0e9535cdf0e9a88";
+    
+    // Tenta abrir o anúncio em nova aba
     const novaAba = window.open(urlAnuncio, '_blank');
+
     if (!novaAba || novaAba.closed || typeof novaAba.closed == 'undefined') {
+        // Se o celular bloqueou o pop-up, vai pelo caminho seguro para não dar tela preta
         window.location.href = urlAnuncio;
         setTimeout(() => {
             window.location.href = urlDownload;
         }, 3000);
     } else {
+        // Se abriu normal, volta pra aba do jogo e inicia o download
         setTimeout(() => {
             window.location.href = urlDownload;
         }, 1000);
     }
 };
 
+// Aproveite e coloque a do aviso de idade aqui também se não tiver
 window.confirmAge = function() {
     const warning = document.getElementById('ageWarning');
     if (warning) {
@@ -316,3 +331,4 @@ window.confirmAge = function() {
         localStorage.setItem('ageConfirmed', 'true');
     }
 };
+
