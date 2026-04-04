@@ -248,7 +248,7 @@ window.onload = () => {
             loadGames();
     
     }
-       }
+       };
 // 🔍 SEARCH FIX
     const searchInput = document.getElementById('searchInput');
     if (searchInput) {
