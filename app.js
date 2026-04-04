@@ -1,6 +1,5 @@
-// 1. Função para confirmar (SÓ roda quando clica no botão)
+// 1. Função para confirmar (só roda quando clica no botão)
 window.confirmAge = function(event) {
-    // Se o evento existir, evita que ele "vaze" para os cards lá atrás
     if (event) {
         event.preventDefault();
         event.stopPropagation();
@@ -8,14 +7,11 @@ window.confirmAge = function(event) {
 
     const warning = document.getElementById('ageWarning');
     if (warning) {
-        // Usar style.display é mais rápido que classList em alguns celulares antigos
-        warning.style.display = 'none'; 
-        warning.classList.add('hidden');
+        warning.style.display = 'none'; // esconde o aviso
         localStorage.setItem('ageConfirmed', 'true');
     }
     return false;
 };
-
 
 // 2. Função para sair
 window.exitSite = function() {
@@ -28,11 +24,9 @@ window.addEventListener('load', () => {
     const jaConfirmou = localStorage.getItem('ageConfirmed');
 
     if (jaConfirmou === 'true') {
-        // Se já aceitou antes, remove o aviso da tela
-        if (warning) warning.remove();
+        if (warning) warning.style.display = 'none'; // não aparece se já confirmou
     } else {
-        // Se NÃO aceitou, garante que ele esteja visível
-        if (warning) warning.style.display = 'flex';
+        if (warning) warning.style.display = 'flex'; // garante que fique visível
     }
 });
 
