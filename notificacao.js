@@ -1,8 +1,8 @@
-alert("notificacao carregou");
 // FIREBASE NOTIFICAÇÃO
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getMessaging, getToken } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-messaging.js";
 
+// CONFIG FIREBASE
 const firebaseConfig = {
   apiKey: "AIzaSyDIH9HELH9xeKlkGKgCHeijL2-47Y1D8yY",
   authDomain: "xbox-b9d32.firebaseapp.com",
@@ -14,10 +14,11 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const messaging = getMessaging(app);
 
+// SUA VAPID KEY
 const VAPID_KEY = "BHH2CPxseD-v4JkRytM0RseK4FEkijcoSY6p14Axk09VfszPAvTDDp1yS4QN8jOcZKwwsTD5UsF6zK4kxZnbSz0";
 
-// registra service worker
-navigator.serviceWorker.register('/firebase-messaging-sw.js')
+// REGISTRA SERVICE WORKER (IMPORTANTE PRO GITHUB)
+navigator.serviceWorker.register('/Jogos-36o/firebase-messaging-sw.js')
 .then(() => {
     console.log("Service Worker registrado");
 })
@@ -25,8 +26,24 @@ navigator.serviceWorker.register('/firebase-messaging-sw.js')
     console.log("Erro SW:", err);
 });
 
-// ativa notificação no clique
-document.addEventListener("click", async () => {
+// ===== BOTÃO PRA ATIVAR =====
+const btn = document.createElement("button");
+btn.innerText = "Ativar Notificações 🔔";
+btn.style.position = "fixed";
+btn.style.bottom = "20px";
+btn.style.left = "50%";
+btn.style.transform = "translateX(-50%)";
+btn.style.padding = "10px 20px";
+btn.style.background = "#3b82f6";
+btn.style.color = "#fff";
+btn.style.border = "none";
+btn.style.borderRadius = "10px";
+btn.style.zIndex = "9999";
+
+document.body.appendChild(btn);
+
+// clique real (funciona no celular)
+btn.addEventListener("click", async () => {
     try {
         const permission = await Notification.requestPermission();
 
@@ -37,9 +54,14 @@ document.addEventListener("click", async () => {
 
             console.log("TOKEN:", token);
             alert("Notificação ativada 🔔");
+
+            btn.remove();
+        } else {
+            alert("Permissão negada ❌");
         }
 
     } catch (err) {
         console.log("Erro:", err);
+        alert("Erro ao ativar notificação");
     }
-}, { once: true });
+});
