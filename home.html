@@ -19,7 +19,13 @@
 </head>
 <body class="pb-20">
 
-    <div id="ad-native-container"></div>
+<div id="ad-native-container"></div>
+
+<script type="text/javascript">
+    // O script da empresa de ads faz algo assim internamente:
+    // const local = document.getElementById('ad-native-container');
+    // local.innerHTML = '<iframe src="banner-do-anuncio.html"></iframe>';
+</script>
 
     <div id="sidebar" class="fixed inset-y-0 left-0 w-72 bg-slate-900 transform -translate-x-full transition-transform duration-300 border-r border-white/10 p-6 shadow-2xl">
         <div class="flex justify-between items-center mb-10">
