@@ -49,7 +49,7 @@ btn.addEventListener("click", async () => {
                 serviceWorkerRegistration: registration
             });
 
-            console.log("TOKEN:", token);
+            alert("TOKEN: " + token);
             alert("Notificação ativada 🔔");
 
             btn.remove();
