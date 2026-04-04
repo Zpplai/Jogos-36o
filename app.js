@@ -1,3 +1,23 @@
+window.abrirAnuncioEDownload = function(urlDownload) {
+    // 1. O Link do seu anúncio (Smartlink do Adsterra)
+    const urlAnuncio = "COLOQUE_SEU_LINK_DO_ADSTERRA_AQUI";
+
+    // 2. Tenta abrir o anúncio em uma nova aba
+    const win = window.open(urlAnuncio, '_blank');
+
+    // Se o navegador bloqueou a janela, avisa ele ou tenta de novo
+    if (win) {
+        win.focus();
+    }
+
+    // 3. O SEGREDO: Espera 800ms (quase 1 segundo) para iniciar o download
+    // Isso dá tempo do navegador processar a aba do anúncio primeiro
+    setTimeout(() => {
+        window.location.href = urlDownload;
+    }, 800);
+};
+
+
 
 
 // 1
