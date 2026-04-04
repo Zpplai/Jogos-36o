@@ -11,11 +11,8 @@
     <style>
 
 
-        
-
-
-<!-- Aviso de idade -->
-<div id="ageWarning" class="fixed inset-0 bg-black/50 flex items-center justify-center p-6 text-center animate-fade-in" style="z-index: 999999; display: none;">
+        <!-- Aviso de idade -->
+<div id="ageWarning" class="fixed inset-0 flex items-center justify-center p-6 text-center animate-fade-in" style="z-index: 999999; display: none; background: rgba(0,0,0,0.5);">
     <div class="bg-slate-900 p-8 rounded-3xl border border-white/10 max-w-sm shadow-2xl">
         <div class="w-16 h-16 bg-red-500/20 text-red-500 rounded-full flex items-center justify-center mx-auto mb-6">
             <i class="fa fa-triangle-exclamation text-3xl"></i>
@@ -36,36 +33,6 @@
         </div>
     </div>
 </div>
-
-<script>
-  // Função para confirmar idade
-  window.confirmAge = function(event) {
-      if (event) { event.preventDefault(); event.stopPropagation(); }
-      const warning = document.getElementById('ageWarning');
-      if (warning) {
-          warning.style.display = 'none';
-          localStorage.setItem('ageConfirmed', 'true');
-      }
-  };
-
-  // Função para sair do site
-  window.exitSite = function() {
-      window.location.href = "https://www.google.com";
-  };
-
-  // Mostrar aviso ao carregar a página
-  window.addEventListener('load', () => {
-      const warning = document.getElementById('ageWarning');
-      const jaConfirmou = localStorage.getItem('ageConfirmed');
-      if (!warning) return;
-
-      if (jaConfirmou === 'true') {
-          warning.style.display = 'none';
-      } else {
-          warning.style.display = 'flex';
-      }
-  });
-</script>
 
 
 
