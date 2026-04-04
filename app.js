@@ -1,4 +1,41 @@
+// 1. Função para confirmar (SÓ roda quando clica no botão)
+window.confirmAge = function(event) {
+// Se o evento existir, evita que ele "vaze" para os cards lá atrás
+if (event) {
+event.preventDefault();
+event.stopPropagation();
+}
 
+const warning = document.getElementById('ageWarning');  
+if (warning) {  
+    // Usar style.display é mais rápido que classList em alguns celulares antigos  
+    warning.style.display = 'none';   
+    warning.classList.add('hidden');  
+    localStorage.setItem('ageConfirmed', 'true');  
+}  
+return false;
+
+};
+
+// 2. Função para sair
+window.exitSite = function() {
+window.location.href = "https://www.google.com";
+};
+
+// 3. Lógica de verificação ao carregar a página
+window.addEventListener('load', () => {
+const warning = document.getElementById('ageWarning');
+const jaConfirmou = localStorage.getItem('ageConfirmed');
+
+if (jaConfirmou === 'true') {  
+    // Se já aceitou antes, remove o aviso da tela  
+    if (warning) warning.remove();  
+} else {  
+    // Se NÃO aceitou, garante que ele esteja visível  
+    if (warning) warning.style.display = 'flex';  
+}
+
+});
 
 
 // --- CONFIGURAÇÕES DO FIREBASE E INTERFACE ---
