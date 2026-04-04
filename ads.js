@@ -26,4 +26,4 @@ setTimeout(() => {
     const invokeScript = document.createElement('script');
     invokeScript.src = '//www.profitablecpmratenetwork.com/28954047f5d4757530c33306912a93d1/invoke.js';
     document.body.appendChild(invokeScript);    
-}, 200);
+}, 1000);
