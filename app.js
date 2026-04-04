@@ -1,20 +1,31 @@
-// Função para abrir o Smartlink e depois o download
-window.abrirAnuncioEDownload = function(urlDownload) {
-    // 1. Abre o anúncio PRIMEIRO
-    const win = window.open('https://www.profitablecpmratenetwork.com/vxg2hm2n04?key=b4c26b2ade112653404ea366c1826caf', '_blank');
-    
-    // 2. Se o navegador bloqueou a janela, avisa ele ou tenta de novo
-    if (win) {
-        win.focus();
+// 1. Função para confirmar (SÓ roda quando clica no botão)
+window.confirmAge = function() {
+    const warning = document.getElementById('ageWarning');
+    if (warning) {
+        warning.style.display = 'none'; // Força o sumiço manual
+        localStorage.setItem('ageConfirmed', 'true'); // Salva que aceitou
     }
-
-    // 3. Só inicia o download depois que a aba do anúncio já "nasceu"
-    // Aumentamos para 800ms para dar tempo do navegador processar
-    setTimeout(() => {
-        window.location.href = urlDownload;
-    }, 800);
-
 };
+
+// 2. Função para sair
+window.exitSite = function() {
+    window.location.href = "https://www.google.com";
+};
+
+// 3. Lógica de verificação ao carregar a página
+window.addEventListener('load', () => {
+    const warning = document.getElementById('ageWarning');
+    const jaConfirmou = localStorage.getItem('ageConfirmed');
+
+    if (jaConfirmou === 'true') {
+        // Se já aceitou antes, remove o aviso da tela
+        if (warning) warning.remove();
+    } else {
+        // Se NÃO aceitou, garante que ele esteja visível
+        if (warning) warning.style.display = 'flex';
+    }
+});
+
 // 1
 import { db, auth } from './firebase-config.js';
 import { collection, addDoc, getDocs, doc, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
