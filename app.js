@@ -334,4 +334,3 @@ async function notificarNovoJogo(nomeJogo) {
         time: Date.now()
     });
 }
-
