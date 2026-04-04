@@ -17,7 +17,7 @@ const messaging = getMessaging(app);
 // SUA VAPID KEY
 const VAPID_KEY = "BHH2CPxseD-v4JkRytM0RseK4FEkijcoSY6p14Axk09VfszPAvTDDp1yS4QN8jOcZKwwsTD5UsF6zK4kxZnbSz0";
 
-// ===== BOTÃO PRA ATIVAR =====
+// ===== BOTÃO =====
 const btn = document.createElement("button");
 btn.innerText = "Ativar Notificações 🔔";
 btn.style.position = "fixed";
@@ -33,33 +33,33 @@ btn.style.zIndex = "9999";
 
 document.body.appendChild(btn);
 
-// clique REAL (funciona no celular)
+// ===== CLIQUE =====
 btn.addEventListener("click", async () => {
     try {
         const permission = await Notification.requestPermission();
 
-        if (permission === "granted") {
-
-            // registra corretamente o service worker
-            const registration = await navigator.serviceWorker.register('./firebase-messaging-sw.js');
-
-            // pega token (AGORA FUNCIONA)
-            const token = await getToken(messaging, {
-                vapidKey: VAPID_KEY,
-                serviceWorkerRegistration: registration
-            });
-
-            alert("TOKEN: " + token);
-            alert("Notificação ativada 🔔");
-
-            btn.remove();
-
-        } else {
+        if (permission !== "granted") {
             alert("Permissão negada ❌");
+            return;
+        }
+
+        // registra SW
+        const registration = await navigator.serviceWorker.register('./firebase-messaging-sw.js');
+
+        // pega token
+        const token = await getToken(messaging, {
+            vapidKey: VAPID_KEY,
+            serviceWorkerRegistration: registration
+        });
+
+        if (token) {
+            alert("TOKEN: " + token);
+        } else {
+            alert("Não gerou token ❌");
         }
 
     } catch (err) {
-        console.log("Erro:", err);
-        alert("Erro ao ativar notificação");
+        alert("ERRO: " + err.message);
+        console.log(err);
     }
 });
