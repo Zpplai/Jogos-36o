@@ -1,11 +1,4 @@
-window.open('https://zpplai.github.io/Jogos-36o/home.html', '_blank');
-function abrirAnuncio(link) {
-    // evita carregar várias vezes
-    if (window.adsLoaded) return;
-    window.adsLoaded = true;
-
-    
-    // LÓGICA DO ADS.JS COM ATRASO (1 SEGUNDO)
+// LÓGICA DO ADS.JS COM ATRASO (1 SEGUNDO)
 setTimeout(() => {
     // 1. Script do Pop-under (abre aba sozinho)
     var s1 = document.createElement('script');
