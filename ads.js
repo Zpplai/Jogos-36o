@@ -11,7 +11,7 @@ setTimeout(() => {
     });
         // Configuração do Native Banner
     const nativeScript = document.createElement('script');
-    nativeScript.innerHTML = `
+    nativeScript.innerHTML = `.
         atOptions = {
             'key' : '28954047f5d4757530c33306912a93d1',
             'format' : 'js',
@@ -19,7 +19,7 @@ setTimeout(() => {
             'container' : 'ad-native-container',
             'params' : {}
         };
-    `;
+    `.;
     document.body.appendChild(nativeScript);
 
     const invokeScript = document.createElement('script');
