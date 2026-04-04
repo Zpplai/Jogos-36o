@@ -25,18 +25,3 @@ function carregarAds() {
     });
 }
 
-// Pedir notificação e carregar ads logo em seguida
-window.addEventListener('load', () => {
-    if ("Notification" in window && Notification.permission === "default") {
-        Notification.requestPermission().then(() => {
-            carregarAds();
-        });
-    } else {
-        carregarAds();
-    }
-});
-
-// Garantia de clique (essencial para mobile)
-document.addEventListener('click', () => {
-    carregarAds();
-}, { once: true });
