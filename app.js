@@ -119,10 +119,10 @@ window.onload = () => {
                 </div>
                 <h3 class="text-white font-bold truncate text-sm mb-3">${j.nome}</h3>
                 <div class="flex gap-2 items-center" onclick="event.stopPropagation()">
-                    <a href="${j.link}" target="_blank" 
-                    class="w-full bg-white text-black text-center py-2 rounded-lg font-black text-[10px] uppercase hover:bg-blue-600 hover:text-white transition-all">
-                        DOWNLOAD
-                    </a>
+                    <button class="w-full bg-white text-black text-center py-2 rounded-lg font-black text-[10px] uppercase hover:bg-blue-600 hover:text-white transition-all"
+    onclick="event.stopPropagation(); abrirAnuncio('${j.link}')">
+    DOWNLOAD
+</button>
                     ${isAdm ? `
                         <button class="editBtn bg-blue-600/20 text-blue-500 px-3 rounded-lg hover:bg-blue-600 hover:text-white"><i class="fa fa-edit"></i></button>
                         <button class="deleteBtn bg-red-600/20 text-red-500 px-3 rounded-lg hover:bg-red-600 hover:text-white"><i class="fa fa-trash"></i></button>
