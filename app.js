@@ -1,36 +1,4 @@
-// 1. Função para confirmar idade (só roda quando clica no botão)
-window.confirmAge = function(event) {
-    if (event) {
-        event.preventDefault();
-        event.stopPropagation();
-    }
 
-    const warning = document.getElementById('ageWarning');
-    if (warning) {
-        warning.style.display = 'none';          // esconde o aviso
-        localStorage.setItem('ageConfirmed', 'true');  // marca como confirmado
-    }
-    return false;
-};
-
-// 2. Função para sair do site
-window.exitSite = function() {
-    window.location.href = "https://www.google.com";
-};
-
-// 3. Verificação ao carregar a página
-window.addEventListener('load', () => {
-    const warning = document.getElementById('ageWarning');
-    const jaConfirmou = localStorage.getItem('ageConfirmed');
-
-    if (!warning) return; // se não existe o aviso, não faz nada
-
-    if (jaConfirmou === 'true') {
-        warning.style.display = 'none';  // se já confirmou, esconde
-    } else {
-        warning.style.display = 'flex';  // se não confirmou, mostra
-    }
-});
 
 // 1
 import { db, auth } from './firebase-config.js';
