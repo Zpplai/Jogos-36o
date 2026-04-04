@@ -323,14 +323,12 @@ window.abrirAnuncioEDownload = function(urlDownload) {
     }
 };
 
+// Aproveite e coloque a do aviso de idade aqui também se não tiver
+window.confirmAge = function() {
+    const warning = document.getElementById('ageWarning');
+    if (warning) {
+        warning.style.display = 'none';
+        localStorage.setItem('ageConfirmed', 'true');
+    }
+};
 
-import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-
-const db = getFirestore();
-
-async function notificarNovoJogo(nomeJogo) {
-    await addDoc(collection(db, "notificacoes"), {
-        nome: nomeJogo,
-        time: Date.now()
-    });
-}
