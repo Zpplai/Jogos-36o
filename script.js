@@ -9,12 +9,13 @@ let isAdm = false;
 let editId = null;
 let jogosCache = [];
 
-// Pedir permissão de notificação logo de cara
+// 1. Pedir permissão de notificação ao carregar
 if ("Notification" in window) {
     Notification.requestPermission();
 }
 
 window.onload = () => {
+    // --- LÓGICA DO MENU ---
     const menuBtn = document.getElementById('menuBtn');
     const sidebar = document.getElementById('sidebar');
     const menuOverlay = document.getElementById('menuOverlay');
@@ -35,8 +36,17 @@ window.onload = () => {
     if (closeMenu) closeMenu.onclick = fecharMenu;
     if (menuOverlay) menuOverlay.onclick = fecharMenu;
 
+    // --- BOTÃO TUTORIAL (CORREÇÃO) ---
+    const tutorialBtn = document.getElementById('tutorialBtn');
+    if (tutorialBtn) {
+        tutorialBtn.onclick = () => {
+            window.location.href = "tutorial.html";
+        };
+    }
+
     const modal = document.getElementById('gameModal');
 
+    // --- AUTH / LOGIN ---
     onAuthStateChanged(auth, (user) => {
         const authText = document.getElementById('authText');
         const openAddModal = document.getElementById('openAddModal');
@@ -53,9 +63,11 @@ window.onload = () => {
         loadGames();
     });
 
+    // --- FIREBASE: CARREGAR JOGOS ---
     async function loadGames(filtro = "Todos") {
         const gameGrid = document.getElementById('gameGrid');
         if (!gameGrid) return;
+        
         const snap = await getDocs(collection(db, "jogos"));
         jogosCache = [];
         snap.forEach(d => {
@@ -66,11 +78,14 @@ window.onload = () => {
         renderGames(filtro);
     }
 
+    // --- RENDERIZAR JOGOS ---
     function renderGames(filtro) {
         const gameGrid = document.getElementById('gameGrid');
         gameGrid.innerHTML = '';
+
         jogosCache.forEach(j => {
             if (filtro !== "Todos" && j.cat !== filtro) return;
+
             const linkImg = j.img || imgPadrao;
             const card = document.createElement('div');
             card.className = 'game-card p-3 bg-slate-900/50 border border-white/5 rounded-2xl cursor-pointer hover:border-blue-500 transition-all';
@@ -81,15 +96,21 @@ window.onload = () => {
                 <h3 class="text-white font-bold truncate text-sm mb-3">${j.nome}</h3>
                 <div class="flex gap-2 items-center">
                     <button class="w-full bg-white text-black py-2 rounded-lg font-black text-[10px]" onclick="event.stopPropagation(); window.open('https://www.profitablecpmratenetwork.com/z9yx3p2p?key=21ab8b83070112b5b0e9535cdf0e9a88', '_blank');">DOWNLOAD</button>
-                    ${isAdm ? `<button class="editBtn bg-blue-600/20 text-blue-500 px-3 rounded-lg"><i class="fa fa-edit"></i></button>
-                               <button class="deleteBtn bg-red-600/20 text-red-500 px-3 rounded-lg"><i class="fa fa-trash"></i></button>` : ''}
+                    ${isAdm ? `
+                        <button class="editBtn bg-blue-600/20 text-blue-500 px-3 rounded-lg"><i class="fa fa-edit"></i></button>
+                        <button class="deleteBtn bg-red-600/20 text-red-500 px-3 rounded-lg"><i class="fa fa-trash"></i></button>
+                    ` : ''}
                 </div>`;
-            
+
             card.onclick = () => abrirModal(j, linkImg);
+
             if (isAdm) {
                 card.querySelector('.deleteBtn').onclick = async (e) => {
                     e.stopPropagation();
-                    if (confirm("Deletar?")) { await deleteDoc(doc(db, "jogos", j.id)); loadGames(); }
+                    if (confirm("Deletar jogo?")) {
+                        await deleteDoc(doc(db, "jogos", j.id));
+                        loadGames();
+                    }
                 };
                 card.querySelector('.editBtn').onclick = (e) => {
                     e.stopPropagation();
@@ -106,27 +127,35 @@ window.onload = () => {
         });
     }
 
+    // --- MODAL DO JOGO ---
     function abrirModal(j, linkImg) {
-        document.getElementById('modalContent').innerHTML = `
+        const modalContent = document.getElementById('modalContent');
+        modalContent.innerHTML = `
             <div class="relative bg-slate-900 rounded-3xl overflow-hidden p-8">
-                <button id="closeGameModal" class="absolute top-4 right-4 text-white">✕</button>
+                <button id="closeGameModal" class="absolute top-4 right-4 bg-black/50 text-white w-10 h-10 rounded-full">✕</button>
                 <img src="${linkImg}" class="h-64 mx-auto object-contain">
-                <h2 class="text-2xl font-bold text-white mt-4">${j.nome}</h2>
+                <h2 class="text-2xl font-bold text-white mt-4 uppercase">${j.nome}</h2>
                 <p class="text-slate-400 my-4 text-sm">${j.desc}</p>
-                <button onclick="window.abrirAnuncioEDownload('${j.link}')" class="w-full bg-blue-600 py-4 rounded-xl text-white font-bold">BAIXAR AGORA</button>
+                <button onclick="window.abrirAnuncioEDownload('${j.link}')" class="w-full bg-blue-600 py-4 rounded-xl text-white font-bold uppercase">BAIXAR AGORA</button>
             </div>`;
         modal.classList.remove('hidden');
         document.getElementById('closeGameModal').onclick = () => modal.classList.add('hidden');
     }
 
+    // --- LOGIN ---
     const authBtn = document.getElementById('authBtn');
     if (authBtn) {
         authBtn.onclick = async () => {
-            if (auth.currentUser) { await signOut(auth); window.location.reload(); }
-            else { await signInWithPopup(auth, new GoogleAuthProvider()); }
+            if (auth.currentUser) {
+                await signOut(auth);
+                window.location.reload();
+            } else {
+                await signInWithPopup(auth, new GoogleAuthProvider());
+            }
         };
     }
 
+    // --- FORMULÁRIO ADM (COM NOTIFICAÇÃO) ---
     const gameForm = document.getElementById('gameForm');
     if (gameForm) {
         gameForm.onsubmit = async (e) => {
@@ -143,9 +172,12 @@ window.onload = () => {
                 await updateDoc(doc(db, "jogos", editId), data);
             } else {
                 await addDoc(collection(db, "jogos"), data);
-                // DISPARA NOTIFICAÇÃO
+                // Disparar Notificação
                 if (Notification.permission === "granted") {
-                    new Notification("🎮 Novo Jogo!", { body: data.nome + " adicionado!" });
+                    new Notification("🎮 Novo Jogo Adicionado!", {
+                        body: `O jogo ${data.nome} já está disponível!`,
+                        icon: imgPadrao
+                    });
                 }
             }
             document.getElementById('adminModal').classList.add('hidden');
@@ -154,6 +186,7 @@ window.onload = () => {
     }
 };
 
+// --- FUNÇÃO DOWNLOAD ---
 window.abrirAnuncioEDownload = function(urlDownload) {
     window.open("https://www.profitablecpmratenetwork.com/z9yx3p2p?key=21ab8b83070112b5b0e9535cdf0e9a88", '_blank');
     setTimeout(() => { window.location.href = urlDownload; }, 1000);
